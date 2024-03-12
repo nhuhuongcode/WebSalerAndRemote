@@ -22,11 +22,8 @@ namespace remoteWebMos
 			if (sc == null)
 			{
 				sc = new SqlConnection();
-				//sc.ConnectionString = WebConfigurationManager.ConnectionStrings["ConStr"].ConnectionString();
-				//sc.ConnectionString = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["ConStr"].ConnectionString;
-				//"server=thinhdt-ultra;database=LibUEH;uid=sa;pwd=davn7710";
-				//sc.ConnectionString = "server=.;database=LibUEH;uid=sa;pwd=123456";
-				string strcon = "ygNLeXpV3Yv/PRGcs71y2p8ejyGxv51szrHhlxwzK2UDeWd6hKNQnp33f9oQU9W66DNmbGGtyNgzs8fegqU/E8Jb5y0/d3z96BG9G58lXENo6JzKBBT7ZgnJ+djEskKF";
+				
+				string strcon = "secret";
 
 
                 string encryptedText = sc.ConnectionString;

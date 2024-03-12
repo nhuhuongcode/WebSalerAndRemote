@@ -1,0 +1,58 @@
+﻿@{
+	Layout = "~/views/shared/_LayoutLogin.cshtml";
+}
+<link href="~/css/login.css" rel="stylesheet" />
+<div class="body_login">
+	<div class="container_login" id="ctnLogin">
+		<div class="form-container sign-up-container">
+			<form method="post">
+				<h1>Đăng nhập bằng mã bí mật</h1>
+				<input type="text" placeholder="Mã bí mật" name="loginkey" autofocus />
+				<input type="hidden" name="IsSecret" value="true" />
+				<button type="submit">Đăng nhập</button>
+				<p class="text-danger">@ViewBag.error</p>
+			</form>
+		</div>
+		<div class="form-container sign-in-container">
+			<form  method="post">
+				<h1>Đăng nhập bằng tài khoản</h1>
+				<input type="text" placeholder="Tên đăng nhập" name="username" autofocus/>
+				<input type="password" placeholder="Password" name="password"/>
+				<input type="hidden" name="IsSecret" value="false" />
+				<a href="#">Quên mật khẩu?</a>
+				<button type="submit">Đăng nhập</button>
+				<p class="text-danger">@ViewBag.error</p>
+			</form>
+		</div>
+		<div class="overlay-container">
+			<div class="overlay">
+				<div class="overlay-panel overlay-left">
+					<h1>Đăng nhập bằng tài khoản</h1>
+					<p>Hãy đăng nhập để tục sử lấy tài khoản remote phần mềm luyện thi MOS nhé!</p>
+					<button class="ghost" id="signIn">Đăng nhập</button>
+				</div>
+				<div class="overlay-panel overlay-right">
+					<h1>Chào bạn</h1>
+					<p>Nếu đăng nhập lần đầu, hãy đăng nhập bằng mã bí mật nhé!</p>
+					<button class="ghost" id="signbyloginkey">Đăng nhập bằng mã bí mật</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	const signUpButton = document.getElementById('signbyloginkey');
+	const signInButton = document.getElementById('signIn');
+	const container = document.getElementById('ctnLogin');
+
+	signUpButton.addEventListener('click', () => {
+		console.log("Sign Up button clicked.");
+		container.classList.add("right-panel-active");
+	});
+
+	signInButton.addEventListener('click', () => {
+		container.classList.remove("right-panel-active");
+	});
+</script>
+
+	

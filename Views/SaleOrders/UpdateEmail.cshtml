@@ -1,0 +1,96 @@
+﻿@model SalerModel;
+@{
+    Layout = "~/Views/Shared/_LayoutSaler.cshtml";
+    ViewBag.tilte = "Luyện thi chứng chỉ MOS -  Cập nhật email";
+    ViewBag.active = 2;
+
+}
+
+<link href="~/css/captk.css" rel="stylesheet" />
+<div class="body_form_CapTK">
+    <div class="form-container">
+        @{
+            if (TempData["error"] != null)
+            {
+                if (int.Parse(TempData["error"].ToString()) == 0)
+                {
+                    <div class="alert alert-success">
+                        <strong>Success !</strong>@TempData["status"]
+                    </div>
+
+                }
+                else if (int.Parse(TempData["error"].ToString()) == 1)
+                {
+                    <div class="alert alert-danger">
+                        <strong>Error !</strong>@TempData["status"]
+                    </div>
+                }
+            }
+        }
+        <h1>Cập nhật Email</h1>
+        @using (Html.BeginForm("UpdateEmail", "SaleOrders", FormMethod.Post, new { @class = "row g-3" }))
+        {
+            <div class="col-md-6">
+                <label for="inputEmail" class="form-label">Email học viên</label>
+                @Html.TextBoxFor(model => model.saleOrder.EmailKH, new { @class = "form-control", id = "inputEmail", required = "required" })
+                @Html.HiddenFor(model =>model.account.Id)
+                @Html.HiddenFor(model =>model.saleOrder.OrderId)
+            </div>
+            <div class="col-md-6">
+                <label for="inputBrand" class="form-label">Trường học</label>
+                @Html.DropDownListFor(model => model.account.login_prefix, new SelectList(Model.brands, "loginkey_pref", "Name"), new { @class = "form-select", required = "required",@disabled = "disabled" })
+            </div>
+            <div class="col-12">
+                <div class="group-check-title">Môn đăng ký</div>
+
+                @for (int i = 0; i < Model.CheckboxOptions.Count; i++)
+                {
+                    <div class="form-check">
+                        @Html.HiddenFor(model => model.CheckboxOptions[i].value)
+                        @Html.CheckBoxFor(model => model.CheckboxOptions[i].IsChecked, new {@class = "form-check-input",@disabled = "disabled"})
+                        <label class="form-check-label" for="checkbox_@Model.CheckboxOptions[i].value">
+                            @Model.CheckboxOptions[i].value
+                        </label>
+                    </div>
+                }
+                @Html.ValidationMessageFor(model => model.CheckboxOptions, "", new { @class = "text-danger" })
+
+
+            </div>
+            <div class="col-md-6">
+                <label for="inputNgaycap" class="form-label">Ngày cấp</label>
+                @Html.TextBoxFor(model => model.saleOrder.NgayCap, "{0:yyyy-MM-dd HH:mm}", new { @class = "form-control", id = "inputNgaycap",@readonly = "readonly" })
+            </div>
+            <div class="col-md-6">
+                <label for="inputHansudung" class="form-label">Hạn sử dụng</label>
+                @Html.TextBoxFor(model => model.account.Expired, "{0:yyyy-MM-dd HH:mm}", new { @class = "form-control", id = "inputHansudung",@readonly = "readonly" })
+            </div>
+            <div class="col-md-6">
+                <label for="inputAttempt" class="form-label">Số lượt dùng</label>
+                @Html.TextBoxFor(model => model.account.Attempt, new {@type = "number", @class="form-control", id="inputAttempt", @readonly = "readonly"})
+            </div>
+            <div class="col-md-6">
+                <div class="form-label">Số tiền</div>
+                <div class="input-group">
+                    @Html.TextBoxFor(model => model.saleOrder.Sotien, new { @type = "number", @class = "form-control", id = "inputAttempt", required = "required",@readonly = "readonly" })
+                    <span class="input-group-text">000</span>
+                    <span class="input-group-text">VNĐ</span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="inputUserid" class="form-label">ID người cấp</label>
+                @Html.TextBoxFor(model => model.saleOrder.EmployID, new { @type = "number", @class = "form-control", id = "inputUserid", @readonly = "readonly" })
+
+            </div>
+            <div class="col-md-8">
+                <label for="inputKenhtt" class="form-label">Kênh truyền thông</label>
+                @Html.TextBoxFor(model => model.saleOrder.KenhTT, new { @class = "form-control", id = "inputKenhtt", required = "required",@readonly = "readonly" })
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Cập nhật Email</button>
+            </div>
+        }
+
+    </div>
+</div>
+

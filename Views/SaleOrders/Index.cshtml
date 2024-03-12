@@ -1,0 +1,73 @@
+﻿@model List<SaleOrder>
+@{
+    Layout = "~/Views/Shared/_LayoutSaler.cshtml";
+    ViewBag.title = "Luyện thi chứng chỉ MOS_Saler - Lịch sử bán hàng";
+    ViewBag.active = 2;
+}
+<link href="~/css/saleorders.css" rel="stylesheet" />
+<div class="body_tbl_SO">
+    <div class="table_container">
+        @{
+            if (TempData["error"] != null)
+            {
+                if (int.Parse(TempData["error"].ToString()) == 0)
+                {
+                            <div class="alert alert-success">
+                                    <strong>Success !</strong>@TempData["status"]
+                            </div>
+
+                }
+                else if (int.Parse(TempData["error"].ToString()) == 1)
+                {
+                                <div class="alert alert-danger">
+                                    <strong>Error !</strong>@TempData["status"]
+                                </div>
+                }
+            }
+        }
+        
+        <div class="d-grid gap-2 d-md-block">
+            <button onclick="location.href='@Url.ActionLink( "CapTK", "SaleOrders")'" class="btn btn-primary" type="button">Thêm mới</button>
+            <button onclick="location.href='@Url.ActionLink( "ExportToCsv", "SaleOrders")'" class="btn btn-info" type="button">Xuất CSV</button>
+        </div>
+        <h1>Lịch sử bán</h1>
+        <table class="table table-fixed table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Order ID</th>
+              <th scope="col">ID học viên</th>
+              <th scope="col">Email học viên</th>
+              <th scope="col">Ngày cấp</th>
+              <th scope="col">Số tiền</th>
+              <th scope="col">Kênh truyền thông</th>
+              <th scope="col">Chức năng</th>
+            </tr>
+          </thead>
+          <tbody>
+            @{
+                foreach(var item in Model)
+                {
+                    <tr>
+                        <th scope="row">@item.OrderId</th>
+                        <td>@item.CustomerId</td>
+                        <td>@item.EmailKH</td>
+                        <td>@item.NgayCap</td>
+                        <td>
+                            <span>@item.Sotien</span>
+                            <span> VNĐ</span>
+                        </td>
+                        <td>@item.KenhTT</td>
+                        <td>
+                                <div class="d-grid gap-2 d-md-block">
+                                    <button onclick="location.href='@Url.ActionLink( "UpdateEmail", "SaleOrders",new{OrderId = item.OrderId})'" class="btn btn-outline-primary" type="button">Sửa mail</button>
+                                    <button onclick="location.href='@Url.ActionLink( "ReSendMail", "SaleOrders",new{OrderId = item.OrderId})'" class="btn btn-outline-info" type="button">Gửi lại mail</button>
+                                </div>
+                        </td>
+                    </tr>
+                }
+            }
+          </tbody>
+        </table>
+    </div>
+</div>
+

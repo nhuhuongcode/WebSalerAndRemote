@@ -1,0 +1,44 @@
+﻿@model Remote
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.title = "Luyện thi chứng chỉ MOS - Lấy thông tin remote";
+    ViewBag.active = 1;
+
+}
+<link href="~/css/getaccount.css" rel="stylesheet" />
+<div class="body_getaccount">
+    <div class="table_container">
+
+        <h1>Lấy thông tin Remote</h1>
+        <p>Thông tin đã đăng ký tài khoản:</p>
+        <p>Khung giờ: <span style="color: #FD6916; font-weight: bold;">@Model.section</span></p>
+        <p>Thời gian: từ ngày <span style="color: #FD6916; font-weight: bold;">@Model.start</span> đến ngày <span style="color: #FD6916; font-weight: bold;">@Model.end</span></p>
+        @{
+            if(Model.isExpired == true && Model.isSection == true)
+            {
+                <table class="table table-fixed table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Thông số Remote</th>
+                            <th scope="col">User name</th>
+                            <th scope="col">Password</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            <tr>
+                                <th scope="row">@Model.IdRemote</th>
+                                <td>@Model.userRemote</td>
+                                <td>@Model.passRemote</td>   
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <h5 class="text align-content-center text-danger">Tài khoản hết thời hạn đăng ký hoặc không đúng khung thời gian đã đăng ký!</h5>
+            }
+        }
+    </div>
+</div>
